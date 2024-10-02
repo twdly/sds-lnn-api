@@ -13,11 +13,11 @@ def get_json():
 
 
 # This method will need to be secured somehow in the future to prevent unauthorised people from sending in weather data
-@app.route("/set", methods=['GET'])
+@app.route("/set", methods=['POST'])
 def set_state():
-    args = request.args
-    temperature = args.get("temp")
-    vorticity = args.get("vort")
+    args = request.form
+    temperature = args.get("temperature")
+    vorticity = args.get("vorticity")
     lnn.update_state(vorticity, temperature)
     return Response(status=200)
 

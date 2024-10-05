@@ -16,7 +16,27 @@ def update_state(vorticity, temperature):
 def get_state():
     file = open("state.txt", "r")
     lines = file.readlines()
-    current_state = lines[len(lines) - 1].removesuffix("\n").split(",")
+    return get_line_result(lines, len(lines) - 1)
+
+
+def get_history(count):
+    file = open("state.txt", "r")
+    lines = file.readlines()
+    line_count = len(lines)
+    if line_count < count:
+        count = line_count
+
+    results = []
+    i = line_count - count
+    while i < line_count:
+        results.append(get_line_result(lines, i))
+        i += 1
+
+    return results
+
+
+def get_line_result(lines, index):
+    current_state = lines[index].removesuffix("\n").split(",")
     result = {
         "prediction": float(current_state[0]),
         "vorticity": int(current_state[1]),

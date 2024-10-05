@@ -7,7 +7,7 @@ import lnn
 app = Flask(__name__)
 
 
-@app.route("/", methods=['GET'])
+@app.route("/get", methods=['GET'])
 def get_json():
     return lnn.get_state()
 
@@ -15,11 +15,17 @@ def get_json():
 # This method will need to be secured somehow in the future to prevent unauthorised people from sending in weather data
 @app.route("/set", methods=['POST'])
 def set_state():
-    args = request.form
-    temperature = args.get("temperature")
-    vorticity = args.get("vorticity")
+    form = request.form
+    temperature = form.get("temperature")
+    vorticity = form.get("vorticity")
     lnn.update_state(vorticity, temperature)
     return Response(status=200)
+
+
+@app.route("/get-history", methods=['GET'])
+def get_history():
+    args = request.args
+    return lnn.get_history(int(args.get("count")))
 
 
 if __name__ == "__main__":

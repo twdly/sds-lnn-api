@@ -18,8 +18,8 @@ def get_state():
     lines = file.readlines()
     current_state = lines[len(lines) - 1].removesuffix("\n").split(",")
     result = {
-        "prediction": current_state[0],
-        "vorticity": current_state[1],
-        "temperature": current_state[2]
+        "prediction": float(current_state[0]),
+        "vorticity": int(current_state[1]),
+        "temperature": int(current_state[2])
     }
     return result

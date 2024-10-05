@@ -31,6 +31,8 @@ def get_history(count):
     while i < line_count:
         results.append(get_line_result(lines, i))
         i += 1
+    for result in results:
+        result["index"] -= (line_count - count - 1)
 
     return results
 
@@ -38,6 +40,7 @@ def get_history(count):
 def get_line_result(lines, index):
     current_state = lines[index].removesuffix("\n").split(",")
     result = {
+        "index": index,
         "prediction": float(current_state[0]),
         "vorticity": int(current_state[1]),
         "temperature": int(current_state[2])

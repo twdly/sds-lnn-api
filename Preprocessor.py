@@ -215,3 +215,17 @@ def get_tensors_to_predict(df):  # only from 1973 to 2024
 
     # if you want to retrain model, then uncomment target and return target.unsqueeze(0)
     return I.unsqueeze(0)#, target.unsqueeze(0)
+
+
+def get_tensors_to_predict_for_training(df, start_year, end_year):  # only from 1973 to 2024
+    # month day and hour should be int64, might want to change to float32
+    # bom_lat
+    feature_columns = ['MONTH', 'DAY', 'HOUR', 'BOM_LAT', 'BOM_LON', 'BOM_WIND', 'BOM_PRES', 'BOM_GUST', 'BOM_EYE', 'STORM_SPEED']
+    target_columns = ['N', 'I']
+
+    I_set = df[df['YEAR'].between(start_year, end_year)]
+    I = torch.tensor(I_set[feature_columns].to_numpy(dtype=np.float32), dtype=torch.float32).to(device)
+    target = torch.tensor(I_set[target_columns].to_numpy(dtype=np.float32), dtype=torch.float32).to(device)
+
+    # if you want to retrain model, then uncomment target and return target.unsqueeze(0)
+    return I.unsqueeze(0), target.unsqueeze(0)

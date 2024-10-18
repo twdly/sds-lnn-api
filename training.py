@@ -32,7 +32,7 @@ for input, target in zip(training_inputs, targets):
 
 LTC.eval()
 
-f_20s, t_20s = p.get_tensors_to_predict(p.preprocess_data(df_south), '1990', '1990')
+f_20s, t_20s = p.get_tensors_to_predict_for_training(p.preprocess_data(df_south), '1990', '1990')
 
 with torch.no_grad():
     predictions, neural_dynamics = LTC.forward(f_20s)

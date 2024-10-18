@@ -1,3 +1,5 @@
 .venv
 .idea
 state.txt
+model.pth
+SP.csv

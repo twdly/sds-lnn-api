@@ -31,7 +31,7 @@ class Reservoir(nn.Module):
             param.requires_grad = False
         for param in self.back2neurons.parameters():
             param.requires_grad = False
-        self.A.requires_grad = True
+        self.A.requires_grad = False
 
     def netwrkf(self, cat, rnn_state):
         output, rnn_new = self.rnn(cat, rnn_state)
